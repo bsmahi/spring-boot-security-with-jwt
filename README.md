@@ -34,7 +34,7 @@ These are APIs that we need to provide:
 
 ## Project Folder Structure
 
-![Image](./images/ProjectStructure.png "Project Structure")
+![Image](./images/projectstructure.png "Project Structure")
 
 Let me explain it briefly
 
