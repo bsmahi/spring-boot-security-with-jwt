@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  course-app:
+    image: spring-boot-security-with-jwt
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
