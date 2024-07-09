@@ -24,8 +24,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import java.security.KeyPair;
@@ -45,14 +43,10 @@ public class JwtSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http,
                                             HandlerMappingIntrospector handlerMappingIntrospector) throws Exception {
 
-        MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(handlerMappingIntrospector);
-
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.OPTIONS, "/**")).permitAll()
-                .requestMatchers(mvcMatcherBuilder.pattern("/authenticate")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/api/courses/**")).authenticated()
-                .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/authenticate", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/api/courses/**").authenticated()
                 .requestMatchers(antMatcher("/h2-console/**")).permitAll());
 
         http.csrf(AbstractHttpConfigurer::disable);
