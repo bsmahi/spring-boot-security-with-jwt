@@ -7,8 +7,3 @@ updates:
     open-pull-requests-limit: 3
     commit-message:
       prefix: "deps:"
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-          - "version-update:semver-major" 
